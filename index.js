@@ -9,9 +9,12 @@ admin.initializeApp();
  */
 let transporter = nodemailer.createTransport({
   service: "gmail",
+  host: "smtp.googlemail.com", // Gmail Host
+  port: 465, // Port
+  secure: true, // this is true as port is 465
   auth: {
     user: "troquel.mail.sender@gmail.com",
-    pass: "troque_mail_sender"
+    pass: "troquel_mail_sender"
   }
 });
 
@@ -19,14 +22,13 @@ exports.sendMail = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     // getting dest email by query string
     const dest = req.query.dest;
-    const autor = req.query.autor;
     const folio = req.query.folio;
     const cliente = req.query.cliente;
     const correo = req.query.correo;
     const descripcion = req.query.descripcion;
 
     const mailOptions = {
-      from: autor, // Something like: Jane Doe <janedoe@gmail.com>
+      from: "troquel.mail.sender@gmail.com", // Something like: Jane Doe <janedoe@gmail.com>
       to: dest,
       subject: "Reporte de Problemas", // email subject
       html: `<p style="font-size: 16px;">Folio de pedido ${folio}</p>
@@ -34,7 +36,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
                 <span> Cliente: ${cliente} </span>
                 <br/>
                 <span> Correo: ${correo} </span>
-                <br/>
+                <br/><br/>
                 <span> Descripcion: </span>
                 <p> ${descripcion}</p>
             ` // email content in HTML
