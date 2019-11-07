@@ -14,19 +14,21 @@ let transporter = nodemailer.createTransport({
   secure: true, // this is true as port is 465
   auth: {
     user: "troquel.mail.sender@gmail.com",
-    pass: "troquel_mail_sender"
+    pass: "troquel_mail_sender00"
   }
 });
 
 exports.sendMail = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     // getting dest email by query string
-    const dest = req.query.dest;
-    const folio = req.query.folio;
-    const cliente = req.query.cliente;
-    const correo = req.query.correo;
-    const descripcion = req.query.descripcion;
+    // Object.values(req.body).forEach(console.log);
 
+    const dest = req.body.dest;
+    const folio = req.body.folio;
+    const cliente = req.body.cliente;
+    const correo = req.body.correo;
+    const descripcion = req.body.descripcion;
+    console.log(dest);
     const mailOptions = {
       from: "troquel.mail.sender@gmail.com", // Something like: Jane Doe <janedoe@gmail.com>
       to: dest,
