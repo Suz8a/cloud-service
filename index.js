@@ -22,6 +22,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
     const autor = req.query.autor;
     const folio = req.query.folio;
     const cliente = req.query.cliente;
+    const correo = req.query.correo;
     const descripcion = req.query.descripcion;
 
     const mailOptions = {
@@ -31,6 +32,8 @@ exports.sendMail = functions.https.onRequest((req, res) => {
       html: `<p style="font-size: 16px;">Folio de pedido ${folio}</p>
                 <br/>
                 <span> Cliente: ${cliente} </span>
+                <br/>
+                <span> Correo: ${correo} </span>
                 <br/>
                 <span> Descripcion: </span>
                 <p> ${descripcion}</p>
